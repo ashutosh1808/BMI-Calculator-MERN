@@ -24,6 +24,12 @@ const hHeight=(event)=>{setHeight(event.target.value)}
 
 const save=(event)=>{
 	event.preventDefault();
+	if(!name.match(/^[a-zA-Z ]+$/))
+	{
+		alert("invalid name")
+		setName("")
+		return
+	}
 	let w=parseFloat(weight)
 	let h=parseFloat(height)
 	let bmi=w/(h**2)
@@ -33,7 +39,13 @@ const save=(event)=>{
 	.then((res)=>{
 		if(res.data.affectedRows==1)
 		{
-			alert("thank you")
+			let r1=""
+			if(bmi<18.5)			r1="You are Underweight!"
+			else if(bmi<24.9)		r1="You are Normal!"
+			else if(bmi<24.9)		r1="You are Overweight!"
+			else if(bmi<24.9)		r1="You are Obese!"
+			else					r1="You are Extremely Obese!"
+			alert(r1)
 		}
 		else if(res.data.code=="ER_DUP_ENTRY")
 		{
@@ -52,13 +64,13 @@ return(
 <h1>Bmi</h1>
 </center>
 <form onSubmit={save}>
-<input type="text" placeholder="what's your token id?" ref={rId} min="1" onChange={hId} required/>
+<input type="number" placeholder="what's your token id?" ref={rId} min="1" onChange={hId} required/>
 <br/><br/>
 <input type="text" placeholder="what's your name?" onChange={hName} required/>
 <br/><br/>
 <input type="number" placeholder="how old are you?" onChange={hAge} required/>
 <br/><br/>
-<input type="number" placeholder="enter contact number" onChange={hPhone} required/>
+<input type="number" placeholder="enter contact number" max_length="10" onChange={hPhone} required/>
 <br/><br/>
 <fieldset>
 <legend>Select your gender</legend>
