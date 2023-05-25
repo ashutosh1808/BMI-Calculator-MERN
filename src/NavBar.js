@@ -7,6 +7,8 @@ return(
 <div className="nav">
 <Link to="/">Home</Link>
 <Link to="/bmi">Calculate BMI</Link>
+<Link to="/ht">Convert height in m</Link>
+<Link to="/about">About</Link>
 </div>
 </center>
 </>
